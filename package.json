@@ -1,6 +1,9 @@
 {
   "name": "push-pocket-action",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.x"
+  },
   "main": "index.js",
   "author": "koki-develop <kou.pg.0131@gmail.com>",
   "license": "MIT"
