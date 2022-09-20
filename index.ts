@@ -8,6 +8,6 @@ try {
   getInput("pocket-access-token", {
     required: true,
   });
-} catch (error) {
+} catch (error: any) {
   setFailed(error.message);
 }
