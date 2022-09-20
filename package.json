@@ -7,6 +7,9 @@
   "main": "index.js",
   "author": "koki-develop <kou.pg.0131@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "ncc build index.js --license licenses.txt"
+  },
   "dependencies": {
     "@actions/core": "^1.9.1",
     "@actions/github": "^5.0.3"
