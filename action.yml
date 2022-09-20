@@ -10,6 +10,9 @@ inputs:
   pocket-access-token:
     description: "Pocket access token"
     required: true
+  archive:
+    description: "Whether to archive pushed items or not. Default is true."
+    required: false
 
 runs:
   using: "node16"

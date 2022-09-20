@@ -8,6 +8,7 @@ try {
   getInput("pocket-access-token", {
     required: true,
   });
+  getInput("archive", { required: false }) ?? "true";
 } catch (error: any) {
   setFailed(error.message);
 }
