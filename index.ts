@@ -1,6 +1,6 @@
 import axios from "axios";
 import _ from "lodash";
-import core from "@actions/core";
+import * as core from "@actions/core";
 import { WebClient } from "@slack/web-api";
 
 type PocketListResponse = {
