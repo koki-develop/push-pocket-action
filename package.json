@@ -1,0 +1,7 @@
+{
+  "name": "push-pocket-action",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "koki-develop <kou.pg.0131@gmail.com>",
+  "license": "MIT"
+}
