@@ -1,0 +1,16 @@
+name: "push-pocket"
+description: "Randomly push items saved in pocket to Slack"
+inputs:
+  slack-channel-id:
+    description: "Slack channel ID to push to"
+    required: true
+  slack-access-token:
+    description: "Slack access token"
+    required: true
+  pocket-access-token:
+    description: "Pocket access token"
+    required: true
+
+runs:
+  using: "node16"
+  main: "dist/index.js"
