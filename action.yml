@@ -7,9 +7,15 @@ inputs:
   slack-access-token:
     description: "Slack access token"
     required: true
+  pocket-consumer-key:
+    description: "Pocket application consumer key"
+    required: true
   pocket-access-token:
     description: "Pocket access token"
     required: true
+  count:
+    description: "Number of items to push at once. Default is 5."
+    required: false
   archive:
     description: "Whether to archive pushed items or not. Default is true."
     required: false
