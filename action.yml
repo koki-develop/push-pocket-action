@@ -1,17 +1,17 @@
 name: "push-pocket"
-description: "Randomly push items saved in pocket to Slack"
+description: "Randomly push items saved in pocket to Slack."
 inputs:
   slack-channel-id:
-    description: "Slack channel ID to push to"
+    description: "Slack channel ID to push to."
     required: true
   slack-access-token:
-    description: "Slack access token"
+    description: "Slack access token."
     required: true
   pocket-consumer-key:
-    description: "Pocket application consumer key"
+    description: "Pocket application consumer key."
     required: true
   pocket-access-token:
-    description: "Pocket access token"
+    description: "Pocket access token."
     required: true
   count:
     description: "Number of items to push at once. Default is 5."
