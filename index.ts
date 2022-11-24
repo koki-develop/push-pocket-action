@@ -41,6 +41,11 @@ type Item = {
       }
     );
     const items = Object.entries(data.list).map(([, item]) => item);
+    if (items.length === 0) {
+      core.info("No items.");
+      return;
+    }
+
     const pickedItems = _.sampleSize(items, count);
 
     const title = "Picked Up Items";
@@ -52,36 +57,27 @@ type Item = {
       },
       { type: "divider" },
     ];
-    if (pickedItems.length === 0) {
+
+    for (const item of pickedItems) {
       blocks.push({
         type: "section",
         text: {
-          type: "plain_text",
-          text: "No items.",
+          type: "mrkdwn",
+          text: `*<${item.given_url}|${
+            item.resolved_title ?? item.given_url
+          }>* ( <https://getpocket.com/read/${item.item_id}|Pocket> )`,
         },
       });
-    } else {
-      for (const item of pickedItems) {
+      if (item.excerpt) {
         blocks.push({
           type: "section",
           text: {
-            type: "mrkdwn",
-            text: `*<${item.given_url}|${
-              item.resolved_title ?? item.given_url
-            }>* ( <https://getpocket.com/read/${item.item_id}|Pocket> )`,
+            type: "plain_text",
+            text: `${item.excerpt}...`,
           },
         });
-        if (item.excerpt) {
-          blocks.push({
-            type: "section",
-            text: {
-              type: "plain_text",
-              text: `${item.excerpt}...`,
-            },
-          });
-        }
-        blocks.push({ type: "divider" });
       }
+      blocks.push({ type: "divider" });
     }
 
     const slack = new WebClient(slackAccessToken);
@@ -91,7 +87,7 @@ type Item = {
       blocks,
     });
 
-    if (pickedItems.length === 0 || archive !== "true") {
+    if (archive !== "true") {
       return;
     }
 
