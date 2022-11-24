@@ -28404,6 +28404,10 @@ const web_api_1 = __nccwpck_require__(431);
             },
         });
         const items = Object.entries(data.list).map(([, item]) => item);
+        if (items.length === 0) {
+            core.info("No items.");
+            return;
+        }
         const pickedItems = lodash_1.default.sampleSize(items, count);
         const title = "Picked Up Items";
         const blocks = [
@@ -28413,35 +28417,24 @@ const web_api_1 = __nccwpck_require__(431);
             },
             { type: "divider" },
         ];
-        if (pickedItems.length === 0) {
+        for (const item of pickedItems) {
             blocks.push({
                 type: "section",
                 text: {
-                    type: "plain_text",
-                    text: "No items.",
+                    type: "mrkdwn",
+                    text: `*<${item.given_url}|${(_a = item.resolved_title) !== null && _a !== void 0 ? _a : item.given_url}>* ( <https://getpocket.com/read/${item.item_id}|Pocket> )`,
                 },
             });
-        }
-        else {
-            for (const item of pickedItems) {
+            if (item.excerpt) {
                 blocks.push({
                     type: "section",
                     text: {
-                        type: "mrkdwn",
-                        text: `*<${item.given_url}|${(_a = item.resolved_title) !== null && _a !== void 0 ? _a : item.given_url}>* ( <https://getpocket.com/read/${item.item_id}|Pocket> )`,
+                        type: "plain_text",
+                        text: `${item.excerpt}...`,
                     },
                 });
-                if (item.excerpt) {
-                    blocks.push({
-                        type: "section",
-                        text: {
-                            type: "plain_text",
-                            text: `${item.excerpt}...`,
-                        },
-                    });
-                }
-                blocks.push({ type: "divider" });
             }
+            blocks.push({ type: "divider" });
         }
         const slack = new web_api_1.WebClient(slackAccessToken);
         yield slack.chat.postMessage({
@@ -28449,7 +28442,7 @@ const web_api_1 = __nccwpck_require__(431);
             text: title,
             blocks,
         });
-        if (pickedItems.length === 0 || archive !== "true") {
+        if (archive !== "true") {
             return;
         }
         yield axios_1.default.post("https://getpocket.com/v3/send", {
